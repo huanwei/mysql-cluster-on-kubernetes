@@ -15,7 +15,7 @@ spec:
    spec:
     containers:
     - name: mysql-slave
-      image: registry.fjhb.cn/mysql-slave:0.1
+      image: huanwei/mysql-slave:0.1
       volumeMounts:
         - mountPath: /var/lib/mysql
           name: mysql-slave-data
