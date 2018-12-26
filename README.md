@@ -3,24 +3,20 @@ This is a sample MySQL cluster on Kubernetes.
 
 The original MySQL5.7 image Dockerfile came from [docker-library/mysql](https://github.com/huanwei/mysql/tree/master/5.7).
 
-Just made some addtions to operate the MySQL cluster on kubernetes.
+Just made some additions to operate the MySQL cluster on kubernetes.
 
 ## how to validate: 
-```
 
-[root@k8s-master no-operator]# kubectl get pods -owide
-NAME                                  READY     STATUS    RESTARTS   AGE       IP               NODE
-mysql-master-lzzps                    1/1       Running   0          47m       192.168.196.8    k8s-node5
-mysql-slave-jrrs9                     1/1       Running   0          2m        192.168.36.137   k8s-node1
-tomcat-deployment-67b98b747b-b62l6    1/1       Running   0          41d       192.168.108.1    k8s-node3
-tomcat-hostnetwork-78cc6766f6-4bmz8   1/1       Running   0          41d       10.10.103.184    k8s-node2
-tomcat-victim-7fdb76db44-nxvg5        1/1       Running   0          39d       192.168.36.129   k8s-node1
+```
+[root@k8s-master deployment]# kubectl get pods -owide |grep mysql
+mysql-master-764955b95-9d2ch          1/1       Running       0          3m        192.168.36.153    k8s-node1
+mysql-slave-67d75fd689-7q56w          1/1       Running       0          30s       192.168.169.207   k8s-node2
 
 
 mysql maser:
 
-[root@k8s-master no-operator]# kubectl exec -it mysql-master-lzzps bash
-root@mysql-master-lzzps:/# mysql -u root -p
+[root@k8s-master deployment]# kubectl exec -it mysql-master-764955b95-9d2ch bash
+root@mysql-master-764955b95-9d2ch:/# mysql -u root -p
 
 mysql> show databases;
 +--------------------+
@@ -54,7 +50,7 @@ mysql> select * from test_tb;
 
 mysql slave:
 
-root@mysql-slave-jrrs9:/# mysql -u root -p
+root@mysql-slave-67d75fd689-7q56w:/# mysql -u root -p
 
 mysql> show slave status;
 
@@ -91,13 +87,13 @@ mysql> select * from test_tb;
 +------+------+
 1 row in set (0.00 sec)
 
-[root@k8s-master no-operator]# kubectl scale rc mysql-slave --replicas=3
-replicationcontroller "mysql-slave" scaled
-[root@k8s-master no-operator]# kubectl get pods -owide
-NAME                                  READY     STATUS    RESTARTS   AGE       IP                NODE
-mysql-master-lzzps                    1/1       Running   0          56m       192.168.196.8     k8s-node5
-mysql-slave-jrrs9                     1/1       Running   0          11m       192.168.36.137    k8s-node1
-mysql-slave-wfnms                     1/1       Running   0          1m        192.168.108.19    k8s-node3
-mysql-slave-z4rm9                     1/1       Running   0          1m        192.168.122.134   k8s-node4
+[root@k8s-master deployment]# kubectl scale deploy mysql-slave --replicas=3
+deployment "mysql-slave" scaled
+
+[root@k8s-master deployment]# kubectl get pods -owide |grep mysql
+mysql-master-764955b95-9d2ch          1/1       Running       0          3m        192.168.36.153    k8s-node1
+mysql-slave-67d75fd689-7q56w          1/1       Running       0          30s       192.168.169.207   k8s-node2
+mysql-slave-67d75fd689-plz6z          1/1       Running       0          1m        192.168.169.206   k8s-node2
+mysql-slave-67d75fd689-sgr5g          1/1       Running       0          30s       192.168.36.154    k8s-node1
 
 ```
