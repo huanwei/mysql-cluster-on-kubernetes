@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql-slave
+  labels:
+    name: mysql-slave
+spec:
+  replicas: 1
+  template:
+    metadata:
+     labels:
+       app: mysql-slave
+    spec:
+      containers:
+      - name: mysql-slave
+        image: huanwei/mysql-slave:0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456"
+        - name: MYSQL_REPLICATION_USER
+          value: "repl"
+        - name: MYSQL_REPLICAITON_PASSWORD
+          value: "123456"
+      nodeSelector:
+           mysql-slave: "on"

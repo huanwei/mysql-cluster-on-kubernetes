@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mysql-master
+  labels:
+    name: mysql-master
+spec:
+  replicas: 1
+  template:
+    metadata:
+     labels:
+       app: mysql-master
+    spec:
+      containers:
+      - name: mysql-master
+        image: huanwei/mysql-master:0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456"
+        - name: MYSQL_REPLICATION_USER
+          value: "repl"
+        - name: MYSQL_REPLICAITON_PASSWORD
+          value: "123456"
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-master-data
+      volumes:
+      - name: mysql-master-data
+        hostPath:
+          path: /data/mysql_master
+      nodeSelector:
+           mysql-master: "on"
