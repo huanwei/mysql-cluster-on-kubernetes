@@ -97,3 +97,58 @@ mysql-slave-67d75fd689-plz6z          1/1       Running       0          1m     
 mysql-slave-67d75fd689-sgr5g          1/1       Running       0          30s       192.168.36.154    k8s-node1
 
 ```
+
+## FAQ
+### 1. how to check slave status
+
+```
+mysql> SHOW SLAVE STATUS\G;
+```
+
+### 2. to set slave read-only
+```
+mysql> set global read_only=1;
+mysql> set global super_read_only=1;
+
+mysql> show global variables like "%read_only%";
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| innodb_read_only      | OFF   |
+| read_only             | ON    |
+| super_read_only       | ON    |
+| transaction_read_only | OFF   |
+| tx_read_only          | OFF   |
++-----------------------+-------+
+5 rows in set (0.01 sec)
+```
+
+### 3. to lock db before backup
+```
+mysql> flush tables with read lock;
+```
+
+
+### 4. to see a complete list of available options
+```
+docker run -it -e MYSQL_ROOT_PASSWORD=123456 huanwei/mysql-slave:0.1 --verbose --help
+
+## refer https://github.com/docker-library/docs/tree/master/mysql
+
+## run master:
+
+docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -d huanwei/mysql-master:0.1
+
+## run slave:
+
+docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -e MYSQL_MASTER_SERVICE_HOST=127.0.0.1 -d huanwei/mysql-slave:0.1 --read-only=1
+
+
+docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -e MYSQL_MASTER_SERVICE_HOST=127.0.0.1 -d huanwei/mysql-slave:0.1 --super-read-only=1
+
+## to test if we can optimize a talbe in mysql slave 
+
+mysql>  optimize table default_table;
+
+```
+

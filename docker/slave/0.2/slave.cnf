@@ -1,0 +1,3 @@
+[mysqld]
+read-only=1 # 除非有SUPER权限，否则只读
+#super-read-only=1 # SUPER权限也是只读
