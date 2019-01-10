@@ -154,3 +154,12 @@ mysql>  optimize table default_table;
 
 ```
 
+### how to increase max_allowed_packet for master
+```
+
+show variables like '%max_allowed%';
+
+set global max_allowed_packet=20971520; //20M
+
+```
+
