@@ -163,3 +163,18 @@ set global max_allowed_packet=20971520; //20M
 
 ```
 
+### how to modify time_zone 
+```
+set global time_zone = '+8:00';
+flush privileges; 
+
+mysql> show variables like '%time_zone%';
++------------------+--------+
+| Variable_name    | Value  |
++------------------+--------+
+| system_time_zone | CST    |
+| time_zone        | +08:00 |
++------------------+--------+
+2 rows in set (0.00 sec)
+
+```
