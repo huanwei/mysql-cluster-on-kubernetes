@@ -1,4 +1,5 @@
 [mysqld]
 read-only=1 # 除非有SUPER权限，否则只读
 #super-read-only=1 # SUPER权限也是只读
+max_allowed_packet=1073741824
 default-time_zone='+8:00'
