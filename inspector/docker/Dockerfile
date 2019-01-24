@@ -5,6 +5,8 @@ MAINTAINER Huan Wei<huan@harmonycloud.cn>
 RUN apt-get update && apt-get install -y mailutils
 COPY mail.rc /etc/mail.rc
 
+RUN apt-get install -y curl
+
 COPY inspector.sh /
 RUN chmod +x /inspector.sh
 ENTRYPOINT ["/inspector.sh"]

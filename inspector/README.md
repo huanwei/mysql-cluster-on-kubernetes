@@ -20,3 +20,19 @@ root@8ca49a528afa:/# cat remote.txt
 ### ref
 
 https://www.cnblogs.com/linux-wang/p/8142844.html
+
+
+### dingding
+
+```
+curl 'https://oapi.dingtalk.com/robot/send?access_token=67cbf102552257c0cd45a10855589048a83cb012077a3e13a4f4a7fefc6ef4eb' \
+   -H 'Content-Type: application/json' \
+   -d "
+  {\"msgtype\": \"text\", 
+    \"text\": {
+        \"content\": \"消息内容: $Message\"
+     }
+  }"
+
+
+```
