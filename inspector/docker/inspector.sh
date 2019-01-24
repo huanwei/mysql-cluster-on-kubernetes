@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function check(){
-    #mysqladmin --protocol tcp -h10.100.100.7 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
+    #mysqladmin --protocol tcp -h127.0.0.1 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
     mysqladmin --protocol tcp -h150.223.23.21 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
 }
 
@@ -17,10 +17,15 @@ while true ; do
     then
         if [ $onceFlag -eq 0 ]
         then
-            echo 'Current minute is '$currentMinutes''
+            #echo 'Current minute is '$currentMinutes''
             echo 'Program running...'
-            echo "$(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
-            echo "$(date "+%Y%m%d%H%M") max_allowed_packet is $(check)" >> /tmp/inspector.log
+            max_allowed_packet=$(check)
+            if [ $max_allowed_packet != 1073741824 ]
+            then
+                echo "$(date "+%Y%m%d%H%M") max_allowed_packet is $max_allowed_packet"
+                echo "$(date "+%Y%m%d%H%M") max_allowed_packet is $max_allowed_packet" >> /tmp/inspector.log
+                echo "Please run 'set global max_allowed_packet=1073741824;' to fix it..."
+            fi
             echo 'Program stopped...'
             onceFlag=1
         else
