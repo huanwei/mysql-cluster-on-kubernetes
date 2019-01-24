@@ -137,7 +137,7 @@ docker run -it -e MYSQL_ROOT_PASSWORD=123456 huanwei/mysql-slave:0.1 --verbose -
 
 ## run master:
 
-docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -d huanwei/mysql-master:0.2
+docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -d huanwei/mysql-master:0.2
 
 ## run slave:
 
@@ -160,7 +160,7 @@ mysql>  optimize table default_table;
 show variables like '%max_allowed%';
 
 //set global max_allowed_packet=20971520; //20M
-set global max_allowed_packet=1073741824;//10G
+set global max_allowed_packet=1073741824;//1G
 
 ```
 
