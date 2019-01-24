@@ -1,6 +1,6 @@
 #!/bin/bash
 
-message="Please run 'set global max_allowed_packet=1073741824;' to fix it..."
+message="Please run 'set global max_allowed_packet=1073741824;' on 150.223.23.21"
 
 function sendMessageToDingding(){
     curl 'https://oapi.dingtalk.com/robot/send?access_token=67cbf102552257c0cd45a10855589048a83cb012077a3e13a4f4a7fefc6ef4eb' \
@@ -15,8 +15,8 @@ function sendMessageToDingding(){
 }
 
 function check(){
-    mysqladmin --protocol tcp -h10.100.100.7 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
-    #mysqladmin --protocol tcp -h150.223.23.21 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
+    #mysqladmin --protocol tcp -h10.100.100.7 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
+    mysqladmin --protocol tcp -h150.223.23.21 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
 }
 
 #once per 5min
