@@ -141,11 +141,14 @@ docker run -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=
 
 ## run slave:
 
-docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -e MYSQL_MASTER_SERVICE_HOST=127.0.0.1 -d huanwei/mysql-slave:0.2
+docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -e MYSQL_MASTER_SERVICE_HOST=192.168.31.95 -d huanwei/mysql-slave:0.2
+
+(### Please note that the above 192.168.31.95 must be the IP address of MySQL master node)
+
 
 or (not recommend):
 
-docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -e MYSQL_MASTER_SERVICE_HOST=127.0.0.1 -d huanwei/mysql-slave:0.1 --read-only=1
+docker run -e MYSQL_ROOT_PASSWORD=123456 -e MYSQL_REPLICATION_USER=repl -e MYSQL_REPLICAITON_PASSWORD=123456 -e MYSQL_MASTER_SERVICE_HOST=192.168.31.95 -d huanwei/mysql-slave:0.1 --read-only=1
 
 
 ## to test if we can optimize a talbe in mysql slave 

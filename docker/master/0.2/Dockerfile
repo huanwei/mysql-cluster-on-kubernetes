@@ -3,4 +3,4 @@ FROM huanwei/mysql-master:0.1
 
 MAINTAINER Huan Wei<huan@harmonycloud.cn>
 
-COPY master.cnf /etc/mysql/conf.d/
+COPY master.cnf mysqldump.cnf /etc/mysql/conf.d/

@@ -8,7 +8,7 @@ function sendMessageToDingding(){
             -d "
            {\"msgtype\": \"text\",
              \"text\": {
-                 \"content\": \"Mysql告警:$message\"
+                 \"content\": \"MySQL告警:$message\"
               }
            }"
     #echo $res
@@ -48,5 +48,5 @@ while true ; do
         onceFlag=0
     fi
 
-    sleep 1
+    sleep 10
 done
