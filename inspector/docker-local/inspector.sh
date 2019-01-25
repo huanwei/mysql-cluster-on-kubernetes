@@ -15,12 +15,12 @@ function sendMessageToDingding(){
 }
 
 function check(){
-    #mysqladmin --protocol tcp -h10.100.100.7 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
-    mysqladmin --protocol tcp -h150.223.23.21 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
+    mysqladmin --protocol tcp -h192.168.31.95 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
+    #mysqladmin --protocol tcp -h150.223.23.21 -uroot -p123456 variables|grep max_allowed_packet |awk '{print $4}'|sed -n 1p
 }
 
 function fix(){
-    mysql -h150.223.23.21 -P3306 -uroot -p123456 <<EOF
+    mysql -h 192.168.31.95 -P 3306 -u root -p123456 <<EOF
     set global max_allowed_packet=1073741824;
 EOF
 }
@@ -45,11 +45,11 @@ while true ; do
                 echo "$(date "+%Y%m%d%H%M") max_allowed_packet is $max_allowed_packet"
                 echo "$(date "+%Y%m%d%H%M") max_allowed_packet is $max_allowed_packet" >> /tmp/inspector.log
                 echo $message
-                sendMessageToDingding $message
+                #sendMessageToDingding $message
                 fix
                 echo "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
                 echo "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)" >> /tmp/inspector.log
-                sendMessageToDingding "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
+                #sendMessageToDingding "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
                 echo 'Program stopped...'
                 onceFlag=1
             fi
