@@ -1,7 +1,0 @@
-set from=edonwei@163.com
-set smtp=smtp.163.com
-set smtp-auth=login
-set smtp-auth-user=edonwei@163.com
-set smtp-auth-password=huan123
-set ssl-verify=ignore
-set nss-config-dir=/etc/maildbs/
