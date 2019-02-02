@@ -25,6 +25,12 @@ function fix(){
 EOF
 }
 
+function fix_slave(){
+    mysql -h150.223.31.164 -P3306 -uroot -p123456 <<EOF
+    set global max_allowed_packet=1073741824;
+EOF
+}
+
 #once per 5min
 onceFlag=0
 
@@ -47,9 +53,10 @@ while true ; do
                 echo $message
                 sendMessageToDingding $message
                 fix
-                echo "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
-                echo "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)" >> /tmp/inspector.log
-                sendMessageToDingding "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
+                fix_slave
+                echo "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
+                echo "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)" >> /tmp/inspector.log
+                sendMessageToDingding "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
                 echo 'Program stopped...'
                 onceFlag=1
             fi

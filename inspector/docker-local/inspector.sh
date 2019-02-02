@@ -47,9 +47,9 @@ while true ; do
                 echo $message
                 #sendMessageToDingding $message
                 fix
-                echo "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
-                echo "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)" >> /tmp/inspector.log
-                #sendMessageToDingding "fixed, $(date "+%Y%m%d%H%M") max_allowed_packet is $(check)"
+                echo "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
+                echo "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)" >> /tmp/inspector.log
+                #sendMessageToDingding "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
                 echo 'Program stopped...'
                 onceFlag=1
             fi
