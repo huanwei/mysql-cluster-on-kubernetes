@@ -54,9 +54,11 @@ while true ; do
                 sendMessageToDingding $message
                 fix
                 fix_slave
-                echo "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
-                echo "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)" >> /tmp/inspector.log
-                sendMessageToDingding "$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
+                message="$(date "+%Y%m%d%H%M") fixed max_allowed_packet is $(check)"
+                echo $message
+                echo $message >> /tmp/inspector.log
+                sendMessageToDingding $message
+                message="Please run 'set global max_allowed_packet=1073741824;' on 150.223.23.21"
                 echo 'Program stopped...'
                 onceFlag=1
             fi
