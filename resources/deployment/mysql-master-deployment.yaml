@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: mysql-master
+  namespace: kube-system
   labels:
     name: mysql-master
 spec:
@@ -13,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mysql-master
-        image: huanwei/mysql-master:0.1
+        image: huanwei/mysql-master:0.2
         imagePullPolicy: Always
         ports:
         - containerPort: 3306

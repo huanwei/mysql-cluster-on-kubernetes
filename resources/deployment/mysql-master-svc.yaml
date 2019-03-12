@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-master
+  name: api-mysql-service
+  namespace: kube-system
   labels:
    name: mysql-master
 spec:
