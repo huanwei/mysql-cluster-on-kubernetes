@@ -11,6 +11,6 @@ spec:
   - port: 3306
     targetPort: 3306
     name: http
-    nodePort: 30066
+    nodePort: 30306
   selector:
     app: mysql-master
