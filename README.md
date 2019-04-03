@@ -214,3 +214,25 @@ mysql> SELECT @@sql_mode;
 mysql> 
 ```
 
+## how to upgrade root password
+
+### first, login mysql and do following
+```
+mysql> use mysql;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> update user set authentication_string=password('root123') where user='root';
+Query OK, 2 rows affected, 1 warning (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 1
+
+mysql> flush privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> quit
+Bye
+
+
+```
+### second, change the password in docker startup environments.(this is optional)
