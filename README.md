@@ -233,6 +233,5 @@ Query OK, 0 rows affected (0.00 sec)
 mysql> quit
 Bye
 
-
 ```
 ### second, change the password in docker startup environments.(this is optional)
